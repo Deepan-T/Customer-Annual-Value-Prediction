@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Annual Value Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div>
+
+            <p class="tag">
+                MACHINE LEARNING • REGRESSION
+            </p>
+
+            <h1>
+                Customer
+                <span>Annual Value</span>
+                Predictor
+            </h1>
+
+            <p class="description">
+
+                Enter customer details and get
+                Annual_Value predictions from
+                four machine learning models.
+
+            </p>
+
+        </div>
+
+
+        <div class="target">
+
+            <small>
+                Prediction Target
+            </small>
+
+            <strong>
+                Annual_Value
+            </strong>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- INPUT FORM -->
+
+    <div class="card">
+
+        <form id="predictionForm">
+
+
+            <!-- CUSTOMER -->
+
+            <div class="section">
+
+                <div class="number">
+                    01
+                </div>
+
+                <div>
+
+                    <h2>
+                        Customer Profile
+                    </h2>
+
+                    <p>
+                        Basic customer information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <!-- AGE -->
+
+                <div class="field">
+
+                    <label>
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="Enter age"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="field">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select id="gender" required>
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        {% for gender in genders %}
+
+                        <option value="{{ gender }}">
+                            {{ gender }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- PLAN -->
+
+                <div class="field">
+
+                    <label>
+                        Plan Type
+                    </label>
+
+                    <select id="plan_type" required>
+
+                        <option value="">
+                            Select Plan
+                        </option>
+
+                        {% for plan in plans %}
+
+                        <option value="{{ plan }}">
+                            {{ plan }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- TENURE -->
+
+                <div class="field">
+
+                    <label>
+                        Tenure Months
+                    </label>
+
+                    <input
+                        type="number"
+                        id="tenure_months"
+                        placeholder="e.g. 24"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- USAGE -->
+
+            <div class="section">
+
+                <div class="number">
+                    02
+                </div>
+
+                <div>
+
+                    <h2>
+                        Usage & Service
+                    </h2>
+
+                    <p>
+                        Customer activity information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Monthly Usage Hours
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        id="monthly_usage_hours"
+                        placeholder="e.g. 120.5"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Support Tickets
+                    </label>
+
+                    <input
+                        type="number"
+                        id="support_tickets"
+                        placeholder="e.g. 5"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Satisfaction Score
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="satisfaction_score"
+                        placeholder="1 - 10"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Average Login Days
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="avg_login_days"
+                        placeholder="e.g. 18"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Service Count
+                    </label>
+
+                    <input
+                        type="number"
+                        id="service_count"
+                        placeholder="e.g. 4"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Data Usage GB
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        id="data_usage_gb"
+                        placeholder="e.g. 150"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BILLING -->
+
+            <div class="section">
+
+                <div class="number">
+                    03
+                </div>
+
+                <div>
+
+                    <h2>
+                        Billing & Contract
+                    </h2>
+
+                    <p>
+                        Financial information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Monthly Charges
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        id="monthly_charges"
+                        placeholder="e.g. 1299"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Payment Delay Days
+                    </label>
+
+                    <input
+                        type="number"
+                        id="payment_delay_days"
+                        placeholder="e.g. 5"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Contract Months
+                    </label>
+
+                    <input
+                        type="number"
+                        id="contract_months"
+                        placeholder="e.g. 12"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Discount %
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="discount_percent"
+                        placeholder="e.g. 10"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                type="submit"
+                id="predictBtn">
+
+                Predict Annual Value
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- RESULTS -->
+
+    <div
+        class="results"
+        id="results">
+
+
+        <div class="result-header">
+
+            <div>
+
+                <p class="tag">
+                    PREDICTION RESULTS
+                </p>
+
+                <h2>
+                    Annual Value Prediction
+                </h2>
+
+            </div>
+
+
+            <div class="average">
+
+                <small>
+                    4 Model Average
+                </small>
+
+                <strong id="average">
+                    ₹0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="model-grid">
+
+
+            <div class="model-card">
+
+                <p>
+                    Linear Regression
+                </p>
+
+                <h3 id="linear">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+            <div class="model-card">
+
+                <p>
+                    Decision Tree
+                </p>
+
+                <h3 id="tree">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+            <div class="model-card">
+
+                <p>
+                    Random Forest
+                </p>
+
+                <h3 id="forest">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+            <div class="model-card">
+
+                <p>
+                    SVR
+                </p>
+
+                <h3 id="svr">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error">
+
+    </div>
+
+
+    <footer>
+
+        Customer Annual Value ML Project
+
+        <span>
+            Flask API • Python • HTML • CSS • JavaScript
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+
+</body>
+
+</html>
